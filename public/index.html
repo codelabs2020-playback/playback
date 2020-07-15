@@ -44,7 +44,7 @@
         });
 
         socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(userId + ': ' + msg));
+          $('#messages').append($('<li>').text(users[userid] + ': ' + msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
       });
