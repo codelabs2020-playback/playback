@@ -33,7 +33,8 @@ io.on("connection", function(socket) {
     //add to list of connections for socket
     connections.push(socket);
     console.log("connected: ", connections.length);
-
+    
+    /*
     //add unique user id
     var userId = makeId();
     users[userId] = {
@@ -48,7 +49,8 @@ io.on("connection", function(socket) {
 
     socket.emit('userId', userId);
     console.log('User ' + userId + ' connected.');
-
+    */
+    
     //disconnect
     socket.on("disconnect", function(data) {
         connections.splice(connections.indexOf(socket), 1);
