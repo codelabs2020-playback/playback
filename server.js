@@ -54,15 +54,14 @@ io.on("connection", function(socket) {
     //disconnect
     socket.on("disconnect", function(data) {
         connections.splice(connections.indexOf(socket), 1);
-        console.log('User ' + userId + ' disconnected.');
+        //console.log('User ' + userId + ' disconnected.');
         console.log("connected: ", connections.length);
     });
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
-        io.emit('chat message', {
+        io.emit('chat message', 
             msg,
-            userID
-        });
+        );
     });
 });
