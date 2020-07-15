@@ -21,7 +21,7 @@ function makeId() {
     var result = '';
 
     for (var i = 0; i < 17; i++) {
-        result += hexChar[Math.floor(Math.random() * 16)];
+        result += hexChars[Math.floor(Math.random() * 16)];
     }  
 
     return result;
@@ -59,8 +59,9 @@ io.on("connection", function(socket) {
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
-        io.emit('chat message', msg
-        //user: socket.username //not yet implemented
-        );
+        io.emit('chat message', {
+            msg,
+            users
+        });
     });
 });
