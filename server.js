@@ -11,7 +11,7 @@ var port = 8000;
 // Chat events when client connects
 app.use(express.static(path.join(__dirname, "public")));
 
-server.listen(port || 8000, function() {
+server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
