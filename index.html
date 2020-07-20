@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="video_hover.css" />
+        <link rel="stylesheet" href="chatbox.css" />
+        <script src="jquery.js"></script>
+    </head>
+    <body style="font-family:'Roboto'">
+        <div id="cloud-container"> 
+            <div id="duckvideo" class="highlight video">
+                <iframe width="1425" height="620" src="https://www.youtube.com/embed/MtN1YnoL46Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div id="enablebutton" class="buttons hide ">
+                    <button onmouseover="mouseOver()" onmouseout="mouseOut()" onclick="showChat()")>Click to Enable Commenting!</button>
+                </div>
+            </div>
+            
+            <script src="enable_chat.js"></script>
+            
+            <button id="chat_bar" class="open-button hide" onclick="openForm()">Comments</button>
+            <div class="chat-popup form-container" id="myForm">
+                <h1>Playback</h1>
+                <label for="table"><b>Comments</b></h2>
+                <div class="table scroll"> 
+                    <table id="comment_table" name="table" class="rowspacing">
+                        <tbody id="comment_section">
+                        </tbody> 
+                    </table>
+                </div>
+                <table>
+                    <td>
+                        <textarea id="comment" placeholder="Type comment..." required></textarea>
+                        <input class="btn" type="button" id="add" value="Enter" onclick="addRow()"></td>
+                    </td>
+                </table>
+                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+            </div>
+        </div>
+    </body>
+</html>
