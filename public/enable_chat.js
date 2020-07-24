@@ -42,6 +42,8 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
+    var socket = io().connect(); 
+
     $('form').submit(function(e){
       e.preventDefault();
       socket.emit('chat message', name + ': ' + $('#m').val());
