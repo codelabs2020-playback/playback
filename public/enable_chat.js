@@ -30,10 +30,9 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
-
     var socket = io().connect();
 
-    $('myForm').submit(function(e){
+    $('form').submit(function(e){
       e.preventDefault();
       socket.emit('chat message', $('#m').val());
       $('#m').val('');
@@ -41,7 +40,7 @@ $(function () {
     });
 
     socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+      $('#messages').append($('<li>').text(users[userId] + ': ' + msg));
       window.scrollTo(0, document.body.scrollHeight);
     });
 });
