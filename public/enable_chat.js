@@ -19,15 +19,13 @@ function showChat() {
 }
 
 var first_execution = true;
+var name = '';
 
 //on click, opening chat bar
 function openForm() {
 
     if (first_execution) {
-        var socket = io(); 
-        var name = prompt('Set your username: ');
-        socket.emit('newuser', name);
-
+        name = prompt('Set your username: ');
         first_execution = false;
     }
 
@@ -42,7 +40,7 @@ function closeForm() {
 
 //emit message through socket and display new comments
 
-$(function (name) {
+$(function () {
     var socket = io().connect(); 
 
     $('form').submit(function(e){
