@@ -14,12 +14,11 @@ server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
-io.on("connection", function(socket) {
-    let room;
+io.sockets.on("connection", function(socket) {
     
-    socket.on('join', function(num) {
-        roomName = `room${num}`
+    socket.on('join', function(room) {
         socket.join(room);
+        io.in(room).emit('hello!');
     });
 
     //disconnect

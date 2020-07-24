@@ -51,7 +51,7 @@ $(function () {
       e.preventDefault();
 
       //add rooms for users
-      if (room != '') {
+      while (room === '') {
         socket.emit('join', room);
       }
       
