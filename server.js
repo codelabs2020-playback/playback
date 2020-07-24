@@ -25,6 +25,6 @@ io.sockets.on("connection", function(socket) {
     //recieving and publishing messages
     socket.on('chat message', function(room, msg) {
         //once client has connected, recieve ping about which room they wish to join
-        io.in(room).emit('chat message', msg);
+        io.to(room).emit('chat message', msg);
     });
 });
