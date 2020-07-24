@@ -48,9 +48,9 @@ $(function () {
     const socket = io().connect(); 
 
     //add rooms for users
-    if (room != '') {
+    socket.on('connect', function() {
         socket.emit('join', room);
-    }
+    });
 
     $('form').submit(function(e){
       e.preventDefault();
