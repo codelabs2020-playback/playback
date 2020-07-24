@@ -73,14 +73,14 @@ io.on("connection", function(socket) {
     socket.on("disconnect", function(data) {
         //users.splice(users.indexOf(userId), 1);
         connections.splice(connections.indexOf(socket), 1);
-        console.log('User ' + userId + ' disconnected.');
+        //console.log('User ' + userId + ' disconnected.');
         console.log("connected: ", connections.length);
     });
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
         io.emit('chat message',
-            msg,
+            msg
             //users
         //user: socket.username //not yet implemented
         );
