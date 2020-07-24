@@ -1,44 +1,10 @@
-<!-- <!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>  
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { position: absolute; background: none; padding: 3px; bottom: 0; width: 100%; }
-      form input { outline: none; box-shadow: inset 0px 0px 12px 6px rgba(88, 88, 88, 0.1); border: 0; padding: 10px; width: 100%; }
-      form button { width: 100%; background: rgb(90, 155, 177); border: none; padding: 10px; }
-      #chatbox { width: 280px; height: 340px; background: #1f1f1f; padding: 0}
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: rgb(241, 241, 241); }
-      #messages li:nth-child(even) { background: none; color: #fff}
-      #messages { margin-bottom: 40px }
-    </style>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-  </head>
-  <body>
-    <div id="chatbox" class = "ui-widget-content">
-        <ul id="messages"></ul>
-        <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
-        </form>
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="socket-frontend.js"></script>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="video_hover.css" />
         <link rel="stylesheet" href="chatbox.css" />
-        <title>Socket.IO chat</title> 
+        <title>Playvacj</title> 
     </head>
 
     <body style="font-family:'Roboto'">
@@ -57,31 +23,10 @@
               <ul id = 'messages'></ul>
               <form action = "">
                 <input id = "m" autocomplete = "off"/>
-                <button>Send</button>
+                <button type = "button" class = "submit">Send</button>
               </form>
             </div>
-            
-            <!-- <div class="chat-popup form-container" id="myForm">
-                <h1>Playback</h1>
-                <label for="table"><b>Comments</b></h2>
-                <div class="table scroll"> 
-                    <table id="comment_table" name="table" class="rowspacing">
-                        <tbody id="comment_section">
-                        </tbody> 
-                    </table>
-                </div>
-                <table>
-                    <td>
-                        <textarea id="comment" placeholder="Type comment..." required></textarea>
-                        <input class="btn" type="button" id="add" value="Enter" onclick="addRow()" ></td>
-                    </td>
-                </table>
-                <button type="button" class="cancel" onclick="closeForm()">Close</button>
-            </div> -->
-
         </div>
-
-
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

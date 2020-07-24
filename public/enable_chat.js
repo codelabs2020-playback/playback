@@ -21,10 +21,13 @@ function showChat() {
 //on click, opening chat bar
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+    document.getElementById("chat_bar").style.display = "none";
+    screenfull.request();
   }
 //on click, minimizing chat bar
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+    document.getElementById("chat_bar").style.display = "block";
 }
 
 //emit message through socket and display new comments
