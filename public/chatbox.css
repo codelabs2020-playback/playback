@@ -35,17 +35,62 @@ body {
     width: 280px;
 }
   
-  /* The popup chat - hidden by default */
-  .chat-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 10px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-  }
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.form-container { 
+  background-color: grey; 
+  margin: 0;
+  padding: 10px; 
+  max-width: 30%; 
+}
   
-  /* Add styles to the form container */
+.form-container input { 
+  outline: none; 
+  box-shadow: inset 0px 0px 12px 6px rgba(88, 88, 88, 0.1); 
+  border: 0; 
+  padding: 10px; 
+  width: 100%; 
+}
+
+.form-container button { 
+  width: 100%; 
+  background: rgb(90, 155, 177); 
+  border: none; 
+  padding: 10px; 
+}
+
+#messages { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+}
+
+#messages li { 
+  padding: 5px 10px; 
+}
+
+#messages li:nth-child(odd) { 
+  background: rgb(241, 241, 241); 
+}
+
+#messages li:nth-child(even) { 
+  background: none; 
+  color: #fff
+}
+
+#messages { 
+  margin-bottom: 40px 
+}
+
+/*
   .form-container {
     max-width: 300px;
     padding: 10px;
@@ -53,7 +98,6 @@ body {
     margin: 0;
   }
 
-  /* Add styles to comments */
   .form-container .row {
     background-color: gray;
     color: white;
@@ -61,7 +105,6 @@ body {
     padding: 10px;
   }
   
-  /* Add styles to comment section */
   .form-container .table {
     height: 410px;
     background-color: white;
@@ -69,13 +112,11 @@ body {
     table-layout: fixed;
     width: 280px;
   }
-  /* Add row spacing in comment section */
   .rowspacing {
     border-collapse:separate; 
     border-spacing:0 5px; 
   }
   
-  /* Full-width textarea */
   .form-container textarea {
     width: 100%;
     padding: 15px;
@@ -86,13 +127,11 @@ body {
     min-height: 100px;
   }
   
-  /* When the textarea gets focus, do something */
   .form-container textarea:focus {
     background-color: #ddd;
     outline: none;
   }
   
-  /* Set a style for the submit/send button */
   .form-container .btn {
     background-color: black;
     color: white;
@@ -104,7 +143,6 @@ body {
     opacity: 0.8;
   }
   
-  /* Add a red background color to the cancel button */
   .form-container .cancel {
     background-color: black;
     color: white;
@@ -116,7 +154,6 @@ body {
     right:0;
   }
   
-  /* Add some hover effects to buttons */
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
@@ -141,3 +178,4 @@ body {
   h1, label {
     font-family: Arial;
   }
+*/
