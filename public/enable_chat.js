@@ -22,6 +22,7 @@ function showChat() {
 var first_execution = true;
 var name = '';
 var room = '';
+const socket = io().connect(); 
 
 //on click, opening chat bar
 function openForm() {
@@ -31,6 +32,9 @@ function openForm() {
         room = prompt('Enter your room ID: ');
 
         first_execution = false;
+
+        //add rooms for users
+        socket.emit('join', room);
     }
 
     document.getElementById("myForm").style.display = "block";
@@ -45,13 +49,6 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
-    const socket = io().connect(); 
-
-    //add rooms for users
-    socket.on('connect', function() {
-        socket.emit('join', room);
-    });
-
     $('form').submit(function(e){
       e.preventDefault();
       
