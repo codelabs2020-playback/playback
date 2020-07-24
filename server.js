@@ -4,16 +4,11 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-<<<<<<< HEAD
 /*
 var users = {};
 var sessions = {};
 */
 
-=======
-var users = {};
-var sessions = {};
->>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 var connections = [];
 var port = 8000;
 
@@ -24,28 +19,18 @@ server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
-<<<<<<< HEAD
 /*
-=======
->>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 function makeId() {
     var hexChars = '0123456789abcdef';
     var result = '';
 
     for (var i = 0; i < 17; i++) {
-<<<<<<< HEAD
         result += hexChar[Math.floor(Math.random() * 16)];
-=======
-        result += hexChars[Math.floor(Math.random() * 16)];
->>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
     }  
 
     return result;
 }
-<<<<<<< HEAD
 */
-=======
->>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 
 io.on("connection", function(socket) {
     console.log("New connection made!");
@@ -94,10 +79,10 @@ io.on("connection", function(socket) {
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
-        io.emit('chat message', {
+        io.emit('chat message',
             msg,
             //users
         //user: socket.username //not yet implemented
-        });
+        );
     });
 });
