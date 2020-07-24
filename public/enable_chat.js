@@ -51,10 +51,7 @@ $(function () {
       e.preventDefault();
 
       //add rooms for users
-      socket.on('connect', function() {
-          //when connected, sign up to recieve messages for the entered room
-          socket.emit('room', room);
-      })
+      socket.emit('create', room);
 
       //get the timestamp
       var today = new Date();
