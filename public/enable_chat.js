@@ -30,13 +30,10 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
-    $( function() {
-        $( "#chatbox" ).draggable().resizable();
-    } );
 
     var socket = io().connect();
 
-    $('form').submit(function(e){
+    $('myForm').submit(function(e){
       e.preventDefault();
       socket.emit('chat message', $('#m').val());
       $('#m').val('');
