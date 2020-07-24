@@ -32,11 +32,6 @@ function closeForm() {
 
 //emit message through socket and display new comments
 function addRow(e) {
-    //emit message through socket.io
-    e.preventDefault();
-    var message = document.getElementById('comment').value;
-    socket.emit('chat message', message);
-    message.value = ''; //clear message area
 
     //display comments
     var comment = document.getElementById("comment");
@@ -51,5 +46,11 @@ function addRow(e) {
     } else {
         alert("Please enter valid comment.")
     }
+
+    //emit message through socket.io
+    e.preventDefault();
+    var message = document.getElementById('comment').value;
+    socket.emit('chat message', message);
+    message = ''; //clear message area
 }
 
