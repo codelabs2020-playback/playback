@@ -116,6 +116,5 @@ body {
 }
 
 #messages { 
-  padding-bottom: 40px; 
   overflow-y: scroll;
 }
