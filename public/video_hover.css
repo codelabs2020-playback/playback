@@ -1,0 +1,16 @@
+.highlight {
+    background-color: white;
+    display: inline-block;
+
+}
+.highlight iframe:hover {
+    opacity: .5;
+}
+
+.hide {
+  display: none;
+}
+
+.video {position: relative}
+.video .buttons {height: 100px; width: 100px; position: absolute; left: 50%; margin-left: -50px; top: 50%; margin-top: -50px;}
+.video:hover .buttons {display: block} 
