@@ -51,7 +51,17 @@
             </div>
             
             <button id="chat_bar" class="open-button hide" onclick="openForm()">Comments</button>
+            
             <div class="chat-popup form-container" id="myForm">
+              <h1>Playback</h1>
+              <ul id = 'messages'></ul>
+              <form action = "">
+                <input id = "m" autocomplete = "off"/>
+                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+              </form>
+            </div>
+            
+            <!-- <div class="chat-popup form-container" id="myForm">
                 <h1>Playback</h1>
                 <label for="table"><b>Comments</b></h2>
                 <div class="table scroll"> 
@@ -67,8 +77,11 @@
                     </td>
                 </table>
                 <button type="button" class="cancel" onclick="closeForm()">Close</button>
-            </div>
+            </div> -->
+
         </div>
+
+
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

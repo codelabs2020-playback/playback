@@ -1,6 +1,3 @@
-//connect to socket
-var socket = io().connect();
-
 //highlighting video on hover and removing off hover 
 document.getElementById("enablebutton").onmouseover = function() {mouseOver()};
 document.getElementById("enablebutton").onmouseout = function() {mouseOut()};
@@ -31,26 +28,23 @@ function closeForm() {
 }
 
 //emit message through socket and display new comments
-function addRow(e) {
 
-    //display comments
-    var comment = document.getElementById("comment");
-    var table = document.getElementById("comment_table");
- 
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    /* input validation: check for blank input */
-    var remove_white = comment.value.trim();
-    if (remove_white!=='') {
-        row.insertCell(0).innerHTML= comment.value;
-    } else {
-        alert("Please enter valid comment.")
-    }
+$(function () {
+    $( function() {
+        $( "#chatbox" ).draggable().resizable();
+    } );
 
-    //emit message through socket.io
-    e.preventDefault();
-    var message = document.getElementById('comment').value;
-    socket.emit('chat message', message);
-    message = ''; //clear message area
-}
+    var socket = io().connect();
 
+    $('form').submit(function(e){
+      e.preventDefault();
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(users[userId] + ': ' + msg));
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+});
