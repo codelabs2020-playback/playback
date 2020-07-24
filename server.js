@@ -22,11 +22,15 @@ io.sockets.on("connection", function(socket) {
         socket.join(room);
         roomName = room;
 
+        //leave all rooms except for the one specified by the user
         for (room in socket.rooms) {
             if (socket.id !== room) {
                 socket.leave(room);
             }
         }
+
+        console.log(io.sockets.adapter.rooms);
+
     });
 
     //disconnect
@@ -38,6 +42,5 @@ io.sockets.on("connection", function(socket) {
     socket.on('chat message', function(msg) {
         //once client has connected, recieve ping about which room they wish to join
         io.sockets.in(roomName).emit('chat message', msg);
-        console.log(msg);
     });
 });
