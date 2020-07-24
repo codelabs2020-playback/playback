@@ -32,7 +32,7 @@ function uniqueCheck(variable) {
     var variableArrayName = Object.keys({variable})[0].toString() + 's';
     var unique = true;
 
-    for (var i = 0; i < variableArrayName.length; i++) {
+    for (var i = 0; i <= variableArrayName.length; ++i) {
         if (variableArrayName[i] === variable) {
             unique = false;
         }
