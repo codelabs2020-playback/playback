@@ -45,14 +45,16 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
-    var socket = io().connect(); 
+    const socket = io().connect(); 
 
     $('form').submit(function(e){
       e.preventDefault();
 
       //add rooms for users
-      socket.emit('room', {room_name : room});
-
+      if (room != '') {
+        socket.emit('join', room);
+      }
+      
       //get the timestamp
       var today = new Date();
       var time = ((today.getHours() % 12 ) || 12) + ":" + today.getMinutes() + ":" + today.getSeconds();

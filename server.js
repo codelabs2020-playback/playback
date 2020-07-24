@@ -15,9 +15,11 @@ server.listen(process.env.PORT || 8000, function() {
 });
 
 io.on("connection", function(socket) {
-
-    socket.on('room', function(data) {
-        socket.join(data.room_name);
+    let room;
+    
+    socket.on('join', function(num) {
+        roomName = `room${num}`
+        socket.join(room);
     });
 
     //disconnect
@@ -26,7 +28,6 @@ io.on("connection", function(socket) {
     //recieving and publishing messages
     socket.on('chat message', function(room, msg) {
         //once client has connected, recieve ping about which room they wish to join
-        socket.join(room);
-        socket.broadcast.to(socket.room).emit('chat message', msg);
+        io.in(room).emit('chat message', msg);
     });
 });
