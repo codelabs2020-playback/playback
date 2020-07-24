@@ -16,7 +16,7 @@ server.listen(process.env.PORT || 8000, function() {
 
 io.sockets.on("connection", function(socket) {
 
-    let roomName = room;
+    let roomName = '';
     
     socket.on('join', function(room) {
         socket.join(room);
