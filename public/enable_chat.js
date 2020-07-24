@@ -24,7 +24,7 @@ var first_execution = true;
 function openForm() {
 
     if (first_execution) {
-        var socket = io().connect(); 
+        var socket = io(); 
         var name = prompt('Set your username: ');
         socket.emit('newuser', name);
 
@@ -42,7 +42,7 @@ function closeForm() {
 
 //emit message through socket and display new comments
 
-$(function () {
+$(function (name) {
     var socket = io().connect(); 
 
     $('form').submit(function(e){
