@@ -4,11 +4,16 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+<<<<<<< HEAD
 /*
 var users = {};
 var sessions = {};
 */
 
+=======
+var users = {};
+var sessions = {};
+>>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 var connections = [];
 var port = 8000;
 
@@ -19,18 +24,28 @@ server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 function makeId() {
     var hexChars = '0123456789abcdef';
     var result = '';
 
     for (var i = 0; i < 17; i++) {
+<<<<<<< HEAD
         result += hexChar[Math.floor(Math.random() * 16)];
+=======
+        result += hexChars[Math.floor(Math.random() * 16)];
+>>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
     }  
 
     return result;
 }
+<<<<<<< HEAD
 */
+=======
+>>>>>>> 68608f164d766e68ec866e47d710dedcde4440af
 
 io.on("connection", function(socket) {
     console.log("New connection made!");
@@ -38,6 +53,19 @@ io.on("connection", function(socket) {
     //add to list of connections for socket
     connections.push(socket);
     console.log("connected: ", connections.length);
+    
+    /*
+    //add unique user id
+    var userId = makeId();
+    users[userId] = {
+        ud: userId,
+        sessionId: null, 
+        socket: socket, //the websocket
+        typing: false
+    };
+    while (users.hasOwnProperty(userId)) {
+        userId = makeId();
+    };
 
     /*
     //add unique user id
