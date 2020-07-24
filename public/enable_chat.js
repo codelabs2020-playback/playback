@@ -30,8 +30,15 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
-function addRow() {
+//emit message through socket and display new comments
+function addRow(e) {
+    //emit message through socket.io
+    e.preventDefault();
+    var message = document.getElementById('comment').value;
+    socket.emit('chat message', message);
+    message.value = ''; //clear message area
 
+    //display comments
     var comment = document.getElementById("comment");
     var table = document.getElementById("comment_table");
  
@@ -46,9 +53,3 @@ function addRow() {
     }
 }
 
-//emit message through socket
-function emitMessage() {
-    var message = document.getElementById('comment').value;
-    socket.emit('chat message', message);
-    message.value = ''; //clear message area
-}
