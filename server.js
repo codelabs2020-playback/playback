@@ -40,7 +40,7 @@ io.on("connection", function(socket) {
     
     socket.on('newuser', function(name) {
         var newUser = name;
-        io.emit('connected_name', newUser + 'connected!');
+        io.emit('connected_name', newUser + ' connected!');
     })
 
     /*
@@ -54,7 +54,7 @@ io.on("connection", function(socket) {
         connections.splice(connections.indexOf(socket), 1);
         //console.log('User ' + userId + ' disconnected.');
         console.log("connected: ", connections.length);
-        io.emit('disconnected_name', newUser + 'disconnected');
+        io.emit('disconnected_name', newUser + ' disconnected');
     });
 
     //recieving and publishing messages

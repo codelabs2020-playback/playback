@@ -44,15 +44,7 @@ $(function () {
       return false;
     });
 
-    socket.on('connected_name', function(msg) {
-        $('#messages').append($('<li style="font-style: italix;">').text(msg));
-    })
-
-    socket.on('disconnected_name', function(msg) {
-        $('#messages').append($('<li style="font-style: italix;">').text(msg));
-    })
-
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+    socket.on('chat message', function(name, msg){
+      $('#messages').append($('<li>').text('name' + ': ' + msg));
     });
 });
