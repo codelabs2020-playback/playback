@@ -51,7 +51,7 @@ $(function () {
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
       //emit username, message, and timestamp
-      socket.emit('chat message', '<i>' + name + '</i>' + ': ' + $('#m').val() + ' <i>-' + time + '</i>');
+      socket.emit('chat message', name + ': ' + $('#m').val() + ' -' + time);
       $('#m').val('');
       return false;
     });
