@@ -22,8 +22,7 @@ function showChat() {
 function openForm() {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("chat_bar").style.display = "none";
-    screenfull.request();
-  }
+}
 //on click, minimizing chat bar
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
@@ -32,8 +31,11 @@ function closeForm() {
 
 //emit message through socket and display new comments
 
+var name = prompt('Set your username: ');
+
 $(function () {
-    var socket = io().connect();
+    var socket = io().connect(); 
+    socket.emit('newuser', name);
 
     $('form').submit(function(e){
       e.preventDefault();
@@ -42,8 +44,15 @@ $(function () {
       return false;
     });
 
+    socket.on('connected_name', function(msg) {
+        $('#messages').append($('<li style="font-style: italix;">').text(msg));
+    })
+
+    socket.on('disconnected_name', function(msg) {
+        $('#messages').append($('<li style="font-style: italix;">').text(msg));
+    })
+
     socket.on('chat message', function(msg){
       $('#messages').append($('<li>').text(msg));
-      window.scrollTo(0, document.body.scrollHeight);
     });
 });

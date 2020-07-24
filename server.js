@@ -5,7 +5,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 /*
-var users = {};
 var sessions = {};
 */
 
@@ -20,7 +19,7 @@ server.listen(process.env.PORT || 8000, function() {
 });
 
 /*
-function makeId() {
+function makeId() { //makes an authentication id for the user
     var hexChars = '0123456789abcdef';
     var result = '';
 
@@ -39,32 +38,12 @@ io.on("connection", function(socket) {
     connections.push(socket);
     console.log("connected: ", connections.length);
     
-    /*
-    //add unique user id
-    var userId = makeId();
-    users[userId] = {
-        ud: userId,
-        sessionId: null, 
-        socket: socket, //the websocket
-        typing: false
-    };
-    while (users.hasOwnProperty(userId)) {
-        userId = makeId();
-    };
+    socket.on('newuser', function(name) {
+        var newUser = name;
+        io.emit('connected_name', newUser + 'connected!');
+    })
 
     /*
-    //add unique user id
-    var userId = makeId();
-    users[userId] = {
-        ud: userId,
-        sessionId: null, 
-        socket: socket, //the websocket
-        typing: false
-    };
-    while (users.hasOwnProperty(userId)) {
-        userId = makeId();
-    };
-
     socket.emit('userId', userId);
     console.log('User ' + userId + ' connected.');
     */
@@ -75,14 +54,11 @@ io.on("connection", function(socket) {
         connections.splice(connections.indexOf(socket), 1);
         //console.log('User ' + userId + ' disconnected.');
         console.log("connected: ", connections.length);
+        io.emit('disconnected_name', newUser + 'disconnected');
     });
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
-        io.emit('chat message',
-            msg
-            //users
-        //user: socket.username //not yet implemented
-        );
+        io.emit('chat message', msg);
     });
 });
