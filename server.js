@@ -21,6 +21,12 @@ io.sockets.on("connection", function(socket) {
     socket.on('join', function(room) {
         socket.join(room);
         roomName = room;
+
+        for (room in socket.rooms) {
+            if (socket.id !== room) {
+                socket.leave(room);
+            }
+        }
     });
 
     //disconnect
