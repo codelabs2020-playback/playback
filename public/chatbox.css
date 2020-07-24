@@ -45,26 +45,48 @@ body {
   z-index: 9;
 }
 
-.form-container { 
-  background-color: grey; 
+#myForm { 
+  max-width: 300px;
+  padding: 10px;
+  background-color: gray;
   margin: 0;
-  padding: 10px; 
-  max-width: 30%; 
+  height: 80%;
 }
   
-.form-container input { 
-  outline: none; 
-  box-shadow: inset 0px 0px 12px 6px rgba(88, 88, 88, 0.1); 
-  border: 0; 
-  padding: 10px; 
-  width: 100%; 
+#myForm input { 
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: 1px solid gray;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 100px;
 }
 
-.form-container button { 
-  width: 100%; 
-  background: rgb(90, 155, 177); 
-  border: none; 
-  padding: 10px; 
+#myForm .button { 
+  background-color: black;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+#myForm .cancel { 
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: absolute;
+  top:0;
+  right:0;
+}
+
+#myForm .button:hover, .open-button:hover {
+  opacity: 1;
 }
 
 #messages { 
@@ -83,11 +105,11 @@ body {
 
 #messages li:nth-child(even) { 
   background: none; 
-  color: #fff
+  color: #fff;
 }
 
 #messages { 
-  margin-bottom: 40px 
+  margin-bottom: 40px; 
 }
 
 /*

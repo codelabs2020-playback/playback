@@ -51,13 +51,13 @@
             </div>
             
             <button id="chat_bar" class="open-button hide" onclick="openForm()">Comments</button>
-            
+
             <div class="chat-popup form-container" id="myForm">
-              <h1>Playback</h1>
+              <button type="button" class="cancel" onclick="closeForm()">Close</button>
               <ul id = 'messages'></ul>
               <form action = "">
                 <input id = "m" autocomplete = "off"/>
-                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                <button>Send</button>
               </form>
             </div>
             
