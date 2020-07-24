@@ -60,7 +60,7 @@ $(function () {
       var time = ((today.getHours() % 12 ) || 12) + ":" + today.getMinutes() + ":" + today.getSeconds();
 
       //emit username, message, and timestamp
-      socket.emit('chat message', name + ' (' + time +'):' + $('#m').val());
+      io.in(room).emit('chat message', name + ' (' + time +'):' + $('#m').val());
       $('#m').val('');
       return false;
     });
