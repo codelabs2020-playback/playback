@@ -45,7 +45,13 @@ $(function () {
 
     $('form').submit(function(e){
       e.preventDefault();
-      socket.emit('chat message', name + ': ' + $('#m').val());
+
+      //get the timestamp
+      var today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+      //emit username, message, and timestamp
+      socket.emit('chat message', '<i>' + name + '</i>' + ': ' + $('#m').val()) + ' <i>-' + time + '</i>');
       $('#m').val('');
       return false;
     });
