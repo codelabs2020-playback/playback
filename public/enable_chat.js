@@ -45,6 +45,6 @@ $(function () {
     });
 
     socket.on('chat message', function(name, msg){
-      $('#messages').append($('<li>').text('name' + ': ' + msg));
+      $('#messages').append($('<li>').text(name + ': ' + msg));
     });
 });
