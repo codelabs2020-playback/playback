@@ -27,12 +27,13 @@ body {
     color: white;
     padding: 16px 20px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
     opacity: 0.8;
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 30%;
+    width: 20%;
 }
   
 /* The popup chat - hidden by default */
@@ -42,7 +43,6 @@ body {
   bottom: 0;
   right: 0;
   border: 3px solid #f1f1f1;
-  z-index: 2147483647;
   padding: 16px 20px;
   width: 30%;
 }
@@ -53,25 +53,34 @@ body {
   background-color: gray;
   margin: 0;
   height: 80%;
+  z-index: 2147483647;
+  border-radius: 4px;
 }
   
 #myForm input { 
-  width: 88%;
-  padding: 15px;
+  position: absolute;
+  width: 83.5%;
+  padding-left: 5%;
+  padding-right: 5%;
   margin-top: 60vh;
   border: 1px solid gray;
+  border-radius: 4px;
   background: #f1f1f1;
-  min-height: 20%;
+  min-height: 10%;
 }
 
 #myForm .submit { 
+  position: absolute;
   background-color: black;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  width: 100%;
-  margin-top: 15px;
-  margin-bottom:10px;
+  width: 94%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 71vh;
+  margin-bottom: 1vh;
   opacity: 0.8;
 }
 
@@ -79,6 +88,7 @@ body {
   background-color: black;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
   opacity: 0.8;
   position: absolute;
