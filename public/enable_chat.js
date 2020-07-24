@@ -22,6 +22,16 @@ function showChat() {
 function openForm() {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("chat_bar").style.display = "none";
+
+    var first_execution = true;
+
+    if (first_execution) {
+        var socket = io().connect(); 
+        var name = prompt('Set your username: ');
+        socket.emit('newuser', name);
+
+        first_execution = false;
+    }
 }
 //on click, minimizing chat bar
 function closeForm() {
@@ -32,10 +42,6 @@ function closeForm() {
 //emit message through socket and display new comments
 
 $(function () {
-    var socket = io().connect(); 
-    var name = prompt('Set your username: ');
-    socket.emit('newuser', name);
-
     $('form').submit(function(e){
       e.preventDefault();
       socket.emit('chat message', name + ': ' + $('#m').val());
