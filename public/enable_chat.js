@@ -31,20 +31,19 @@ function closeForm() {
 
 //emit message through socket and display new comments
 
-var name = prompt('Set your username: ');
-
 $(function () {
     var socket = io().connect(); 
+    var name = prompt('Set your username: ');
     socket.emit('newuser', name);
 
     $('form').submit(function(e){
       e.preventDefault();
-      socket.emit('chat message', $('#m').val());
+      socket.emit('chat message', name + ': ' + $('#m').val());
       $('#m').val('');
       return false;
     });
 
-    socket.on('chat message', function(name, msg){
-      $('#messages').append($('<li>').text(name + ': ' + msg));
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
     });
-});
+}); 
