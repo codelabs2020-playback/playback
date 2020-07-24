@@ -1,6 +1,7 @@
 //highlighting video on hover and removing off hover 
 document.getElementById("enablebutton").onmouseover = function() {mouseOver()};
 document.getElementById("enablebutton").onmouseout = function() {mouseOut()};
+
 function mouseOver() {
     document.getElementById("duckvideo").style.opacity= ".5";
 }
@@ -20,12 +21,15 @@ function showChat() {
 
 var first_execution = true;
 var name = '';
+var room = '';
 
 //on click, opening chat bar
 function openForm() {
 
     if (first_execution) {
         name = prompt('Set your username: ');
+        room = prompt('Enter your room ID: ');
+
         first_execution = false;
     }
 
@@ -46,12 +50,18 @@ $(function () {
     $('form').submit(function(e){
       e.preventDefault();
 
+      //add rooms for users
+      socket.on('connect', function() {
+          //when connected, sign up to recieve messages for the entered room
+          socket.emit('room', room);
+      })
+
       //get the timestamp
       var today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var time = ((today.getHours() % 12 ) || 12) + ":" + today.getMinutes() + ":" + today.getSeconds();
 
       //emit username, message, and timestamp
-      socket.emit('chat message', name + ': ' + $('#m').val() + ' -' + time);
+      socket.emit('chat message', name + ' (' + time +'):' + $('#m').val());
       $('#m').val('');
       return false;
     });
