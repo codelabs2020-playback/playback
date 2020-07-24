@@ -3,7 +3,6 @@ var path = require("path");
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-//io = socketio.listen(server);
 
 var port = 8000;
 
@@ -18,7 +17,6 @@ io.sockets.on("connection", function(socket) {
     
     socket.on('join', function(room) {
         socket.join(room);
-        io.in(room).emit('hello!');
     });
 
     //disconnect

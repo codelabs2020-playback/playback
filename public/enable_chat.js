@@ -47,13 +47,13 @@ function closeForm() {
 $(function () {
     const socket = io().connect(); 
 
+    //add rooms for users
+    while (room === '') {
+        socket.emit('join', room);
+    }
+
     $('form').submit(function(e){
       e.preventDefault();
-
-      //add rooms for users
-      while (room === '') {
-        socket.emit('join', room);
-      }
       
       //get the timestamp
       var today = new Date();
