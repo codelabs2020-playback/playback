@@ -18,12 +18,10 @@ function showChat() {
     document.getElementById("chat_bar").style.display="inline";
 }
 
+var first_execution = true;
+
 //on click, opening chat bar
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
-    document.getElementById("chat_bar").style.display = "none";
-
-    var first_execution = true;
 
     if (first_execution) {
         var socket = io().connect(); 
@@ -32,6 +30,9 @@ function openForm() {
 
         first_execution = false;
     }
+
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("chat_bar").style.display = "none";
 }
 //on click, minimizing chat bar
 function closeForm() {
