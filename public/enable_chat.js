@@ -51,7 +51,7 @@ $(function () {
       e.preventDefault();
 
       //add rooms for users
-      socket.emit('create', room);
+      socket.emit('room', {room_name : room});
 
       //get the timestamp
       var today = new Date();
@@ -64,6 +64,8 @@ $(function () {
     });
 
     socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+      if (msg != '') {
+        $('#messages').append($('<li>').text(msg));
+      }
     });
 }); 

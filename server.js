@@ -14,10 +14,10 @@ server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
-io.sockets.on("connection", function(socket) {
+io.on("connection", function(socket) {
 
-    socket.on('create', function(room) {
-        socket.join(room);
+    socket.on('room', function(data) {
+        socket.join(data.room_name);
     });
 
     //disconnect
@@ -26,6 +26,7 @@ io.sockets.on("connection", function(socket) {
     //recieving and publishing messages
     socket.on('chat message', function(room, msg) {
         //once client has connected, recieve ping about which room they wish to join
-        io.in(room).emit('chat message', msg);
+        socket.join(room);
+        socket.broadcast.to(socket.room).emit('chat message', msg);
     });
 });
