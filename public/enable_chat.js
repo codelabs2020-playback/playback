@@ -19,17 +19,57 @@ function showChat() {
     document.getElementById("chat_bar").style.display="inline";
 }
 
+//this global exposure isn't safe in the long run; ensure they are encrypted
 var first_execution = true;
+var names = [];
+var rooms = [];
 var name = '';
 var room = '';
 const socket = io().connect(); 
+
+//function to check if entered chat name and room name is unique; generate hex
+function uniqueCheck(variable) {
+    var variableArrayName = Object.keys({variable})[0].toString() + 's';
+    var unique = true;
+
+    for (var i = 0; i < variableArrayName.length; i++) {
+        if (variableArrayName[i] === variable) {
+            unique = false;
+        }
+    }
+
+    return unique;
+}
+
+function generateHash() {
+    var result = '';
+    var hexChars = '0123456789abcdef';
+
+    for (var i = 0; i < 16; i += 1) {
+      result += hexChars[Math.floor(Math.random() * 16)];
+    }
+
+    return result;
+}
 
 //on click, opening chat bar
 function openForm() {
 
     if (first_execution) {
-        name = prompt('Set your username: ');
+        name = prompt('Set your username: ', 'Anonymous');
+
+        if (uniqueNameCheck(name)) {
+            names.push(name);
+        } else {
+            name = prompt('Username taken. Try again: ');
+        }
+
         room = prompt('Enter your room ID: ');
+        rooms.push(room);
+
+        if (uniqueRoomCheck(room)) {
+            var sessionID = generateHash(); //supply this and room name to database
+        }
 
         first_execution = false;
 
