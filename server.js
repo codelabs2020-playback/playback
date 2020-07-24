@@ -20,11 +20,14 @@ io.sockets.on("connection", function(socket) {
     });
 
     //disconnect
-    /* socket.on("disconnect", function(data) { }); */
+    socket.on("disconnect", function() {
+        socket.disconnect();
+     });
 
     //recieving and publishing messages
     socket.on('chat message', function(room, msg) {
         //once client has connected, recieve ping about which room they wish to join
         io.to(room).emit('chat message', msg);
+        console.log(msg);
     });
 });
