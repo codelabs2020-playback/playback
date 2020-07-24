@@ -48,7 +48,7 @@ $(function () {
     const socket = io().connect(); 
 
     //add rooms for users
-    while (room === '') {
+    if (room != '') {
         socket.emit('join', room);
     }
 
