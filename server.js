@@ -4,7 +4,11 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-var users = [];
+/*
+var users = {};
+var sessions = {};
+*/
+
 var connections = [];
 var port = 8000;
 
@@ -15,6 +19,19 @@ server.listen(process.env.PORT || 8000, function() {
     console.log("Listening to port: " + port);
 });
 
+/*
+function makeId() {
+    var hexChars = '0123456789abcdef';
+    var result = '';
+
+    for (var i = 0; i < 17; i++) {
+        result += hexChar[Math.floor(Math.random() * 16)];
+    }  
+
+    return result;
+}
+*/
+
 io.on("connection", function(socket) {
     console.log("New connection made!");
 
@@ -22,17 +39,37 @@ io.on("connection", function(socket) {
     connections.push(socket);
     console.log("connected: ", connections.length);
 
+    /*
+    //add unique user id
+    var userId = makeId();
+    users[userId] = {
+        ud: userId,
+        sessionId: null, 
+        socket: socket, //the websocket
+        typing: false
+    };
+    while (users.hasOwnProperty(userId)) {
+        userId = makeId();
+    };
+
+    socket.emit('userId', userId);
+    console.log('User ' + userId + ' connected.');
+    */
+
     //disconnect
     socket.on("disconnect", function(data) {
-        users.splice(users.indexOf(socket.username), 1);
+        //users.splice(users.indexOf(userId), 1);
         connections.splice(connections.indexOf(socket), 1);
+        console.log('User ' + userId + ' disconnected.');
         console.log("connected: ", connections.length);
     });
 
     //recieving and publishing messages
     socket.on('chat message', function(msg) {
-        io.emit('chat message', msg
+        io.emit('chat message', {
+            msg,
+            //users
         //user: socket.username //not yet implemented
-        );
+        });
     });
 });
