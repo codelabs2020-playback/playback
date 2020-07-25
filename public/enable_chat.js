@@ -63,6 +63,8 @@ function generateHash() {
 function openForm() {
 
     if (first_execution) {
+        first_execution = false;
+
         name = prompt('Set your username: ', 'Anonymous');
 
         while (!uniqueNameCheck(name)) {
@@ -82,8 +84,6 @@ function openForm() {
             var sessionID = generateHash(); //supply this and room name to database
         }
         */
-
-        first_execution = false;
 
         //add rooms for users
         socket.emit('join', room);
