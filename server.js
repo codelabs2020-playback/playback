@@ -19,7 +19,7 @@ io.sockets.on("connection", function(socket) {
     let roomName = '';
     
     socket.on('join', function(room) {
-        socket.join(room);
+        socket.join(room);        
         roomName = room;
 
         //leave all rooms except for the one specified by the user

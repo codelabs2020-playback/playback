@@ -21,23 +21,27 @@ function showChat() {
 
 //this global exposure isn't safe in the long run; ensure they are encrypted
 var first_execution = true;
-var names = [];
-var rooms = [];
+
+var names = []; //to keep track of usernames in a room
 var name = '';
+
 var room = '';
+
+var roomCreatedFlag;
+var numberOfUsers; //for more accurate check of number of users in room directly using socket
+
 const socket = io().connect(); 
 
-//function to check if entered chat name and room name is unique; generate hex
-function uniqueCheck(variable) {
-    var variableArrayName = Object.keys({variable})[0] + 's';
+//function to check if entered chat name is unique
+function uniqueCheck(name) {
     var unique = true;
 
-    if (variableArrayName.length === 0) { //checks for uniqueness before new name entered
+    if (names.length === 0) { //checks for uniqueness before new name entered
         //if no other names in the room, selected name must be unique
         return unique;
     } else {
-        for (var i = 0; i < variableArrayName.length; i++) {
-            if (variableArrayName[i] === variable) {
+        for (var i = 0; i < names.length; i++) {
+            if (names[i] === name) {
                 unique = false;
             }
         }
@@ -46,18 +50,6 @@ function uniqueCheck(variable) {
     return unique;
 }
 
-/*
-function generateHash() {
-    var result = '';
-    var hexChars = '0123456789abcdef';
-
-    for (var i = 0; i < 16; i += 1) {
-      result += hexChars[Math.floor(Math.random() * 16)];
-    }
-
-    return result;
-}
-*/
 
 //on click, opening chat bar
 function openForm() {
@@ -66,28 +58,17 @@ function openForm() {
         first_execution = false;
 
         name = prompt('Set your username: ', 'Anonymous');
+        names.push(name);
         
-        /*
         while (!uniqueNameCheck(name)) {
             name = prompt('Username taken. Try again: ');
         }
-        */
 
-        names.push(name);
-
-        room = prompt('Enter your room ID: ');
-        rooms.push(room);
-
-        /*
-        rooms.push(room);
-
-        if (uniqueRoomCheck(room)) {
-            var sessionID = generateHash(); //supply this and room name to database
-        }
-        */
+        room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
 
         //add rooms for users
         socket.emit('join', room);
+        roomCreatedFlag = true;
     }
 
     document.getElementById("myForm").style.display = "block";
@@ -99,16 +80,6 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
     document.getElementById("chat_bar").style.display = "block";
 }
-
-//json data
-
-/*
-var data = {
-    "roomName" : "placeholder",
-    "roomUniqueID" : "placeholder",
-    "messageLog" : "placeholder",
-}
-*/
 
 //emit message through socket and display new comments. 
 $(function () {
@@ -129,30 +100,42 @@ $(function () {
       if (msg != '') {
         $('#messages').append($('<li>').text(msg));
       }
-
-      //whenever there is a chat message, append this to the json data, which will be sent when the room is closed
     });
 }); 
 
 /*
+//json data
+
+var data = {
+    "roomName" : "placeholder",
+    "roomUniqueID" : "placeholder",
+    "messageLog" : "placeholder"
+}
+
+
 function submitData() {
 
     const data = "data to be sent"
     const backendURL = "http://localhost:7000/api/v1/back-end-route-specific-to-what-we're-sending"
+    
     // Send data to the API with fetch
-    fetch (backend, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-                }
-            ).then(res => {
-      // Handle the response stream as JSON
-      return res.json()
-    }).then((json) => {
-      response = json.fieldName
-    }).catch((err) => {
-      console.log('-- Error fetching --')
-      console.log(err.message)
-    })  
+    numberOfUsers = io.sockets.adapter.rooms[room].length;
+
+    if (numberOfUsers === 0 && roomCreatedFlag == True) {
+        fetch (backend, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                    }
+                ).then(res => {
+        // Handle the response stream as JSON
+        return res.json()
+        }).then((json) => {
+        response = json.fieldName
+        }).catch((err) => {
+        console.log('-- Error fetching --')
+        console.log(err.message)
+        })  
+    }
 }
 */
