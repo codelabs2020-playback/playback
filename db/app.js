@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const app = express();
 app.use(cookieParser());
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
@@ -16,18 +19,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 15000;
 // this is deprecated:
 // app.use(expressValidator());
-var checkAuth = (req, res, next) => {
-  console.log("Checking authentication");
-  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
-    req.user = null;
-  } else {
-    var token = req.cookies.nToken;
-    var decodedToken = jwt.decode(token, { complete: true }) || {};
-    req.user = decodedToken.payload;
-  }
-  next();
-};
-app.use(checkAuth);
+// var checkAuth = (req, res, next) => {
+//   console.log("Checking authentication");
+//   if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+//     req.user = null;
+//   } else {
+//     var token = req.cookies.nToken;
+//     var decodedToken = jwt.decode(token, { complete: true }) || {};
+//     req.user = decodedToken.payload;
+//   }
+//   next();
+// };
+// app.use(checkAuth);
+
+
 const User = require('./models/user.js');
 const users = require('./controllers/users.js')(app);
 const Comment = require('./models/comment.js');
