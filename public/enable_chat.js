@@ -66,13 +66,14 @@ function openForm() {
         first_execution = false;
 
         name = prompt('Set your username: ', 'Anonymous');
-
+        
+        /*
         while (!uniqueNameCheck(name)) {
             name = prompt('Username taken. Try again: ');
         }
+        */
 
         names.push(name);
-
 
         room = prompt('Enter your room ID: ');
         rooms.push(room);
