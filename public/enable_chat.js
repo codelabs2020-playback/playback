@@ -29,18 +29,24 @@ const socket = io().connect();
 
 //function to check if entered chat name and room name is unique; generate hex
 function uniqueCheck(variable) {
-    var variableArrayName = Object.keys({variable})[0].toString() + 's';
+    var variableArrayName = Object.keys({variable})[0] + 's';
     var unique = true;
 
-    for (var i = 0; i <= variableArrayName.length; ++i) {
-        if (variableArrayName[i] === variable) {
-            unique = false;
+    if (variableArrayName.length === 0) { //checks for uniqueness before new name entered
+        //if no other names in the room, selected name must be unique
+        return unique;
+    } else {
+        for (var i = 0; i < variableArrayName.length; i++) {
+            if (variableArrayName[i] === variable) {
+                unique = false;
+            }
         }
     }
 
     return unique;
 }
 
+/*
 function generateHash() {
     var result = '';
     var hexChars = '0123456789abcdef';
@@ -51,6 +57,7 @@ function generateHash() {
 
     return result;
 }
+*/
 
 //on click, opening chat bar
 function openForm() {
@@ -58,21 +65,24 @@ function openForm() {
     if (first_execution) {
         name = prompt('Set your username: ', 'Anonymous');
 
-        /*
-        if (uniqueNameCheck(name)) {
-            names.push(name);
-        } else {
+        while (!uniqueNameCheck(name)) {
             name = prompt('Username taken. Try again: ');
         }
 
+        names.push(name);
+
+
         room = prompt('Enter your room ID: ');
+        rooms.push(room);
+
+        /*
         rooms.push(room);
 
         if (uniqueRoomCheck(room)) {
             var sessionID = generateHash(); //supply this and room name to database
         }
         */
-       
+
         first_execution = false;
 
         //add rooms for users
@@ -82,14 +92,24 @@ function openForm() {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("chat_bar").style.display = "none";
 }
+
 //on click, minimizing chat bar
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
     document.getElementById("chat_bar").style.display = "block";
 }
 
-//emit message through socket and display new comments
+//json data
 
+/*
+var data = {
+    "roomName" : "placeholder",
+    "roomUniqueID" : "placeholder",
+    "messageLog" : "placeholder",
+}
+*/
+
+//emit message through socket and display new comments. 
 $(function () {
     $('form').submit(function(e){
       e.preventDefault();
@@ -108,5 +128,30 @@ $(function () {
       if (msg != '') {
         $('#messages').append($('<li>').text(msg));
       }
+
+      //whenever there is a chat message, append this to the json data, which will be sent when the room is closed
     });
 }); 
+
+/*
+function submitData() {
+
+    const data = "data to be sent"
+    const backendURL = "http://localhost:7000/api/v1/back-end-route-specific-to-what-we're-sending"
+    // Send data to the API with fetch
+    fetch (backend, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+                }
+            ).then(res => {
+      // Handle the response stream as JSON
+      return res.json()
+    }).then((json) => {
+      response = json.fieldName
+    }).catch((err) => {
+      console.log('-- Error fetching --')
+      console.log(err.message)
+    })  
+}
+*/
