@@ -58,6 +58,7 @@ function openForm() {
     if (first_execution) {
         name = prompt('Set your username: ', 'Anonymous');
 
+        /*
         if (uniqueNameCheck(name)) {
             names.push(name);
         } else {
@@ -70,7 +71,8 @@ function openForm() {
         if (uniqueRoomCheck(room)) {
             var sessionID = generateHash(); //supply this and room name to database
         }
-
+        */
+       
         first_execution = false;
 
         //add rooms for users
