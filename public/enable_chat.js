@@ -32,6 +32,7 @@ var numberOfUsers; //for more accurate check of number of users in room directly
 
 const socket = io().connect(); 
 
+/*
 //function to check if entered chat name is unique
 function uniqueCheck(name) {
     var unique = true;
@@ -49,7 +50,7 @@ function uniqueCheck(name) {
 
     return unique;
 }
-
+*/
 
 //on click, opening chat bar
 function openForm() {
@@ -60,10 +61,12 @@ function openForm() {
         name = prompt('Set your username: ', 'Anonymous');
         names.push(name);
         
+        /*
         while (!uniqueNameCheck(name)) {
             name = prompt('Username taken. Try again: ');
         }
-
+        */
+       
         room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
 
         //add rooms for users
