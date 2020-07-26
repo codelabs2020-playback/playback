@@ -131,18 +131,16 @@ $(function () {
 function submitComment(data) {
     // we're probably going to want to make this an environment variable:
     const backendURL = "http://localhost:15000/api/v1/comment/new"
-    // numberOfUsers = io.sockets.adapter.rooms[room].length;
-    // if (numberOfUsers === 0 && roomCreatedFlag == true) {
-        fetch (backendURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json'},
-                    body: JSON.stringify(data)
-                    }
-                ).then(res => {
-                    result = res.json();
-                    console.log(res.statusCode);
-                    return res.statusCode==200
-        })
+    fetch (backendURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+                }
+            ).then(res => {
+                result = res.json();
+                console.log(res.statusCode);
+                return res.statusCode==200
+    })
 }
 
 // made a route to check the database for unique roomID's.
@@ -159,7 +157,7 @@ async function checkUnique(roomName) {
                       'videoUrlSrc':videoSrc,
                       'pageUrl':pageUrl
                     }
-    let response = await fetch (backendURL, {
+    let response = await fetch(backendURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(sessionData)
