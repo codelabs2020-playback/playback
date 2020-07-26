@@ -33,6 +33,7 @@ module.exports = function(app) {
             res.redirect('/login');
         }
     })
+    
     app.post("/api/v1/comment/new", (req, res) => {
             message = req.body.content != ""
             console.log(req.body)
