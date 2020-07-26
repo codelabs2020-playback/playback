@@ -33,8 +33,6 @@ var numberOfUsers; //for more accurate check of number of users in room directly
 
 const socket = io().connect();
 
-let isUnique;
-
 /*
 //function to check if entered chat name is unique
 function uniqueCheck(name) {
@@ -70,6 +68,8 @@ function openForm() {
         }
         */
         room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
+
+        checkUnique(room).then( (isUnique) => console.log(isUnique));
 
         //add rooms for users
         socket.emit('join', room);
@@ -145,11 +145,11 @@ function submitComment(data) {
         })
 }
 
-// tried to make a route to check the database for unique roomID's.
+// made a route to check the database for unique roomID's.
+// the route works, but this function does not...
     // getting a rejected promise.
-    // i think we need to put a javascript keyword like 'await' or 'async'
-    // in front of where I call this function.
-function checkUnique(roomName) {
+    // i think we need to use the javascript keywords 'await' and/or 'async'
+async function checkUnique(roomName) {
     const backendURL = "http://localhost:15000/api/v1/session/unique"
 
     videoSrc = 'http:the-video-url.com'
@@ -159,15 +159,26 @@ function checkUnique(roomName) {
                       'videoUrlSrc':videoSrc,
                       'pageUrl':pageUrl
                     }
-        fetch (backendURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json'},
-                    body: JSON.stringify(sessionData)
-                    }
-                ).then( res => {
-                    console.log('hey')
-                    result = res.json();
-                    console.log(result)
-                    isUnique = result.unique == "1"
-        })
+    let response = await fetch (backendURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(sessionData)
+            }).then((res)=>console.log(res))
+        isUnique = response.json().unique == "1"
+        return isUnique
 }
+
+/*
+// from https://dev.to/shoupn/javascript-fetch-api-and-using-asyncawait-47mp:
+
+async function getUserAsync(name)
+{
+  let response = await fetch(`https://api.github.com/users/${name}`);
+  let data = await response.json()
+  return data;
+}
+
+getUserAsync('yourUsernameHere')
+  .then(data => console.log(data));
+
+*/
