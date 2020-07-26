@@ -33,6 +33,7 @@ module.exports = function(app) {
             res.redirect('/login');
         }
     })
+    
     app.post("/api/v1/comment/new", (req, res) => {
             message = req.body.content != ""
             console.log(req.body)
@@ -50,12 +51,15 @@ module.exports = function(app) {
                     .find({ roomID: req.body.roomID, videoUrl: req.body.videoUrlSrc, pageUrl: req.body.pageUrl  })
                     .then( sessions => {
                         if (sessions.length == 0) {
-                            let session = new Session();
-                            session.roomID = req.body.roomID;
-                            session.videoUrl = req.body.videoUrlSrc;
-                            session.pageUrl = req.body.pageUrl;
-                            session.save()
+                            let newSession = new Session();
+                            newSession.roomID = req.body.roomID;
+                            newSession.videoUrl = req.body.videoUrlSrc;
+                            newSession.pageUrl = req.body.pageUrl;
+                            // append the new comment object to the session object.
+                            newSession.comments.push(comment);
+                            newSession.save()
                             .then( () => {return res.status(200);} )
+                            // BAD REQUEST.
                             .catch( err => { console.log(err.message); return res.status(400); } );
                         } else {
                             session = sessions[0];
@@ -63,15 +67,14 @@ module.exports = function(app) {
                             session.comments.push(comment);
                             session.save()
                             .then( () => {return res.status(200);} )
+                            // BAD REQUEST.
                             .catch( err => { console.log(err.message); return res.status(400); } );
                         }
                     })
                 })
             } else {
-                return res.status(400); // BAD REQUEST.
+                // BAD REQUEST.
+                return res.status(400);
             }
         });
-
-    // UPDATE. do we want users to be able to EDIT their past comments?
-    // DELETE. do we want users to be able to DELETE their past comments?
 };

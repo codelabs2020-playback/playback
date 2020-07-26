@@ -33,6 +33,8 @@ var numberOfUsers; //for more accurate check of number of users in room directly
 
 const socket = io().connect();
 
+let isUnique;
+
 /*
 //function to check if entered chat name is unique
 function uniqueCheck(name) {
@@ -67,7 +69,6 @@ function openForm() {
             name = prompt('Username taken. Try again: ');
         }
         */
-
         room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
 
         //add rooms for users
@@ -142,18 +143,31 @@ function submitComment(data) {
                     console.log(res.statusCode);
                     return res.statusCode==200
         })
+}
 
-        // THIS WORKS:
-        // const testURL = 'https://play-tictactoe-ai.herokuapp.com/api/v1/rand/turn/o/board/xox!o!!x'
-        // fetch (testURL, {
-        //             // method: 'POST',
-        //             // headers: { 'Content-Type': 'application/json',
-        //             //             'Access-Control-Allow-Origin': '*'},
-        //             // body: JSON.stringify(data)
-        //             }
-        //         ).then(res => {
-        //             result = res.json();
-        //             console.log(result);
-        //             return res.statusCode==200
-        // })
+// tried to make a route to check the database for unique roomID's.
+    // getting a rejected promise.
+    // i think we need to put a javascript keyword like 'await' or 'async'
+    // in front of where I call this function.
+function checkUnique(roomName) {
+    const backendURL = "http://localhost:15000/api/v1/session/unique"
+
+    videoSrc = 'http:the-video-url.com'
+    pageUrl = 'http:the-page-url.com'
+    const sessionData = {
+                      'roomID':roomName,
+                      'videoUrlSrc':videoSrc,
+                      'pageUrl':pageUrl
+                    }
+        fetch (backendURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify(sessionData)
+                    }
+                ).then( res => {
+                    console.log('hey')
+                    result = res.json();
+                    console.log(result)
+                    isUnique = result.unique == "1"
+        })
 }
