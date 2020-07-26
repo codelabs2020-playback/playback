@@ -54,7 +54,7 @@ function uniqueCheck(name) {
 */
 
 //on click, opening chat bar
-function openForm() {
+async function openForm() {
 
     if (first_execution) {
         first_execution = false;
@@ -67,10 +67,16 @@ function openForm() {
             name = prompt('Username taken. Try again: ');
         }
         */
-        room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
-
-        checkUnique(room).then( (isUnique) => console.log(isUnique));
-
+        let isUnique = false
+        while(isUnique == false){
+            room = prompt('Enter your room ID: '); //later, create room uniqueness check and hash generator
+            
+            // async function never returning a value beyond 'undefined'.
+                // tested route and checkUnique().
+            let unique = await checkUnique(room);
+            console.log(room, isUnique, unique);
+            isUnique = unique;
+        }
         //add rooms for users
         socket.emit('join', room);
         roomCreatedFlag = true;
@@ -144,39 +150,23 @@ function submitComment(data) {
 }
 
 // made a route to check the database for unique roomID's.
-// the route works, but this function does not...
-    // getting a rejected promise.
-    // i think we need to use the javascript keywords 'await' and/or 'async'
-async function checkUnique(roomName) {
+// the route works and this function works, but the openForm()
+// function calls this one and isn't getting the return value.
+function checkUnique(roomName) {
     const backendURL = "http://localhost:15000/api/v1/session/unique"
-
-    videoSrc = 'http:the-video-url.com'
-    pageUrl = 'http:the-page-url.com'
+    const videoSrc = 'http:the-video-url.com'
+    const pageUrl = 'http:the-page-url.com'
     const sessionData = {
-                      'roomID':roomName,
-                      'videoUrlSrc':videoSrc,
-                      'pageUrl':pageUrl
+                      roomID:roomName,
+                      videoUrlSrc:videoSrc,
+                      pageUrl:pageUrl
                     }
-    let response = await fetch(backendURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify(sessionData)
-            }).then((res)=>console.log(res))
-        isUnique = response.json().unique == "1"
-        return isUnique
-}
-
-/*
-// from https://dev.to/shoupn/javascript-fetch-api-and-using-asyncawait-47mp:
-
-async function getUserAsync(name)
-{
-  let response = await fetch(`https://api.github.com/users/${name}`);
-  let data = await response.json()
-  return data;
-}
-
-getUserAsync('yourUsernameHere')
-  .then(data => console.log(data));
-
-*/
+    let options =  {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify(sessionData)
+                    }
+    fetch(backendURL,options)
+    .then( (response) => { console.log(response); return response.json(); })
+    .then( (result) => { let isUnique = result.unique == 1; console.log(result,isUnique); return isUnique; })
+};

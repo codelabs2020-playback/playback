@@ -10,12 +10,11 @@ module.exports = (app) => {
             .find({ roomID: req.body.roomID, videoUrl: req.body.videoUrlSrc, pageUrl: req.body.pageUrl  })
             .then( sessions => {
                 if (sessions.length == 0) {
-                    json =  {"unique":'1'};
+                    json =  {unique:1};
                 } else {
-                    json =  {"unique":'0'};
+                    json =  {unique:0};
                 }
-                console.log(json)
-                return JSON.stringify(json)
+                res.send(JSON.stringify(json));
             })
         });
 };
