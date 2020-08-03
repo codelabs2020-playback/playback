@@ -1,0 +1,23 @@
+{
+  "name": "playback",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "A Chrome extension to allow people to watch videos together remotely",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+        "matches": ["http://*/*","https://*/*"],
+        "js": [
+          "jquery-3.5.1.js", 
+          "content_script.js"
+        ],
+        "css": ["main.css"],
+        "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    "main.css"
+  ]
+}
